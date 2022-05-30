@@ -40,6 +40,16 @@ INSTALLED_APPS = [
     'product.apps.ProductConfig',
 ]
 
+
+
+REST_FRAMEWORK = {
+
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -110,7 +120,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'datastore',
+        'NAME': 'productdatabase',
 
         'USER': 'postgres',
 
