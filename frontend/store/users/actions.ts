@@ -31,6 +31,7 @@ import {
   
   export const logoutAction = (value: boolean) => {
     return (dispatch: (arg0: { type: string; payload: boolean }) => void) => {
+      localStorage.removeItem('userInfo')
       dispatch({
         type: LOGOUT_ACTION,
         payload: value,
@@ -43,17 +44,6 @@ import {
       dispatch({
         type: SIGNUP_ACTION,
         payload: value,
-      });
-    };
-  };
-  
-  export const saveUserinfo1Action = (userinfo: userSignupProps) => {
-    return (
-      dispatch: (arg0: { type: string; payload: userSignupProps }) => void
-    ) => {
-      dispatch({
-        type: SAVE_USERINFO_ACTION,
-        payload: userinfo,
       });
     };
   };

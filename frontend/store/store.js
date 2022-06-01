@@ -1,7 +1,6 @@
 import { createStore, applyMiddleware } from "redux";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
 import thunkMiddleware from "redux-thunk";
-
 import storage from "./sync_storage";
 import { combinedReducer } from "./rootReducer";
 // If you don't bother about the error redux-persist failed to create sync storage. falling back to noop storage...uncomment the next line and comment out the previous import. See more on - https://github.com/vercel/next.js/discussions/15687
@@ -26,7 +25,7 @@ const makeStore = ({ isServer }) => {
 
     const persistConfig = {
       key: "nextjs",
-      whitelist: ["UserReducer", "ProductReducer"], // only counter will be persisted, add other reducers if needed
+      whitelist: ["AuthReducer"], // only counter will be persisted, add other reducers if needed
       storage, // if needed, use a safer storage
     };
 

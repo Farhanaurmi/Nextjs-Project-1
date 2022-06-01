@@ -1,5 +1,6 @@
+import { Container } from "react-bootstrap";
 import FormSignup from "../../components/signup/FormSignup";
-import Container from "../../node_modules/react-bootstrap/esm/Container";
+
 
 export default function Home() {
   return (
