@@ -7,11 +7,13 @@ export interface SingleProductProps {
     id: number;
     name: string;
     SKU:string;
+    color:string;
+    size:string;
     price: number;
     description: string;
     category: number;
-    brand: number;
-    media: any[];
+    brand: string;
+    file_content: any[];
   }
 
   
