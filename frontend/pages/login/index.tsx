@@ -27,7 +27,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       notFound: true,
     };
   }
-  
   return {
     props: { productsData },
   };

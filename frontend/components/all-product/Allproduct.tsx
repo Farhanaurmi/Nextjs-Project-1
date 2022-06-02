@@ -1,9 +1,14 @@
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
+import { AllProductListProps } from "../../utils/types/landingpage";
 
-const Allproduct = () => {
+const Allproduct = ({ allproducts }: { allproducts: AllProductListProps[] }) => {
   return (
   <Container>
+  {allproducts.product.media?.map()
+  (item: any, index: any) => (
+
+  )}
     <Card style={{ width: '18rem' }}>
     <Card.Img variant="top" src=".././images/4-5-2.jpg" />
     <Card.Body>
@@ -20,3 +25,19 @@ const Allproduct = () => {
 };
 
 export default Allproduct;
+
+{productitem.product_media?.map(
+  (item: any, index: any) => (
+    <div
+      className="product-thumb swiper-slide"
+      key={item.id}
+    >
+      <img
+        src={item.file}
+        alt="Product Image"
+        width="60"
+        height="68"
+      />
+    </div>
+  )
+)}
