@@ -13,7 +13,7 @@ const Header = () => {
   return (
   <Navbar bg="light" expand="lg">
     <Container>
-      <Navbar.Brand href="#home">Product Storage</Navbar.Brand>
+      <Navbar.Brand href="/">Product Storage</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="me-auto">
@@ -21,7 +21,6 @@ const Header = () => {
           <Nav.Link href="/signup">Signup</Nav.Link>
           <Nav.Link href="/login">Login</Nav.Link>
           <NavDropdown title="User" id="basic-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
             <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
           </NavDropdown>
         </Nav>

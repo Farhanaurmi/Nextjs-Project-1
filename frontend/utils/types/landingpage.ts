@@ -1,5 +1,5 @@
 export interface AllProductListProps {
-  product: SingleProductProps[];
+  allproducts: SingleProductProps[];
 }
 
 
@@ -13,7 +13,7 @@ export interface SingleProductProps {
     description: string;
     category: number;
     brand: string;
-    file_content: any[];
+    file_content: FormData;
   }
 
   

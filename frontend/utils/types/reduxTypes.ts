@@ -1,4 +1,4 @@
-import { SingleProductProps } from "./landingpage";
+import { AllProductListProps, SingleProductProps } from "./landingpage";
 
 export interface UserLoginProps {
   status: boolean;
@@ -21,6 +21,7 @@ export interface AuthRootStateType {
 
 export interface RootAppStateProps {
   AuthReducer: AuthRootStateType;
+  AllProductsReducer: AllProductListProps;
 }
 
 export interface userSignupProps {

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Button, Container, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -7,7 +8,6 @@ import { RootAppStateProps } from "../../utils/types/reduxTypes";
 import { API_BASE_URL } from "../api/hello";
 
 const addProduct = () => {
-
   const { userInfo } = useSelector(
     (state: RootAppStateProps) => state.AuthReducer
   );
@@ -18,17 +18,31 @@ const addProduct = () => {
   } = useForm<SingleProductProps>();
 
   const onSubmit: SubmitHandler<SingleProductProps> = async (data) => {
-    console.log(data)
-    const request = await fetch(`${API_BASE_URL}/add/product`, {
-      method: "POST",
-      body: JSON.stringify(data),
+    console.log(data);
+    //   const request = await fetch(`${API_BASE_URL}/add/product`, {
+    //     method: "POST",
+    //     body: JSON.stringify(data),
+    //     headers: {
+    //       'Content-type':'application/json',
+    //       Authorization: `Bearer ${userInfo['token']}`,
+    //     },
+    //   });
+    // };
+    const config = {
       headers: {
-        'Content-type':'application/json',
-        Authorization: `Bearer ${userInfo['token']}`,
+        "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${userInfo["token"]}`,
       },
-    });
-  };
+    };
 
+    const { request } = await axios.post(
+      `${API_BASE_URL}/add/product`,
+      data,
+      config
+    );
+    console.log(data);
+    console.log(request);
+  };
   return (
     <div>
       <Header />
@@ -76,8 +90,8 @@ const addProduct = () => {
                 type="number"
                 placeholder="Enter Price"
                 id="price"
-            required
-            {...register("price", { required: true })}
+                required
+                {...register("price", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -87,8 +101,8 @@ const addProduct = () => {
                 type="text"
                 placeholder="Enter Category"
                 id="category"
-            required
-            {...register("category", { required: true })}
+                required
+                {...register("category", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -98,8 +112,8 @@ const addProduct = () => {
                 type="text"
                 placeholder="Enter Description"
                 id="description"
-            required
-            {...register("description", { required: true })}
+                required
+                {...register("description", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -109,8 +123,8 @@ const addProduct = () => {
                 type="text"
                 placeholder="Enter Color"
                 id="color"
-            required
-            {...register("color", { required: true })}
+                required
+                {...register("color", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -120,8 +134,8 @@ const addProduct = () => {
                 type="text"
                 placeholder="Enter Size"
                 id="size"
-            required
-            {...register("size", { required: true })}
+                required
+                {...register("size", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -131,8 +145,8 @@ const addProduct = () => {
                 type="text"
                 placeholder="Enter SKU"
                 id="SKU"
-            required
-            {...register("SKU", { required: true })}
+                required
+                {...register("SKU", { required: true })}
               ></Form.Control>
             </Form.Group>
 
@@ -144,6 +158,6 @@ const addProduct = () => {
       </div>
     </div>
   );
-}
+};
 
 export default addProduct;
