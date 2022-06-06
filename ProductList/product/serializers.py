@@ -39,6 +39,9 @@ class SingleProductSerializer(serializers.ModelSerializer):
         return serializer.data
 
 
-
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
 
 

@@ -1,6 +1,6 @@
 import { GetServerSideProps, InferGetServerSidePropsType, NextPage } from "next";
-import { Col, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { Col, Container, Row } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import Allproduct from "../components/all-product/Allproduct";
 import Header from "../components/common/Header";
 import { allProductsListAction } from "../store/products/actions";

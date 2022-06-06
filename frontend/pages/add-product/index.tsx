@@ -1,13 +1,17 @@
 import axios from "axios";
-import { Button, Container, Form } from "react-bootstrap";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { Button, Container, Dropdown, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import Header from "../../components/common/Header";
-import { SingleProductProps } from "../../utils/types/landingpage";
+import { CategoryProps, SingleProductProps } from "../../utils/types/landingpage";
 import { RootAppStateProps } from "../../utils/types/reduxTypes";
 import { API_BASE_URL } from "../api/hello";
 
-const addProduct = () => {
+const addProduct = ({
+  categoryData
+}: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+
   const { userInfo } = useSelector(
     (state: RootAppStateProps) => state.AuthReducer
   );
@@ -16,6 +20,24 @@ const addProduct = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<SingleProductProps>();
+ 
+
+  // export const addContact = (data) => async (dispatch) => {
+  //   try {
+  //        var formData=new FormData();
+  //        formData.append('name',data.Name);
+  //        formData.append('email',data.Email);
+  //        formData.append('phone',data.Phone);
+  //        formData.append('image',data.Image);
+  //        let response= await Axios.post(`http://localhost:3000/api/contact/addContact`,formData,{
+  //           headers:{
+  //               'x-auth-token':localStorage.getItem('token')
+  //           }
+  //        });
+  //     } catch (error) {
+  //         console.log(error);
+  //     }
+  //  }
 
   const onSubmit: SubmitHandler<SingleProductProps> = async (data) => {
     console.log(data);
@@ -28,6 +50,11 @@ const addProduct = () => {
     //     },
     //   });
     // };
+    // var formData=new FormData();
+    // formData.append('name',data.name);
+    // formData.append('brand',data.brand);
+    // formData.append('phone',data.Phone);
+    // formData.append('file_content',data.file_content);
     const config = {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -97,13 +124,18 @@ const addProduct = () => {
 
             <Form.Group controlId="Category">
               <Form.Label>Category</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter Category"
-                id="category"
-                required
-                {...register("category", { required: true })}
-              ></Form.Control>
+                  <Dropdown>
+                    <Dropdown.Toggle>Select Category</Dropdown.Toggle>
+                    <Dropdown.Menu {...register("category", { required: true })}>
+                    {categoryData.map((item: CategoryProps)=>(
+                    <Dropdown.Item key={item.id} value={item.id}>
+                      {item.name}
+                    </Dropdown.Item>
+                       ))}
+                    </Dropdown.Menu>
+                  </Dropdown>
+               
+             
             </Form.Group>
 
             <Form.Group controlId="Description">
@@ -161,3 +193,12 @@ const addProduct = () => {
 };
 
 export default addProduct;
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const resCate = await fetch(`${API_BASE_URL}/category`);
+  const categoryData: CategoryProps[] = await resCate.json();
+
+  return {
+    props: { categoryData },
+  };
+};

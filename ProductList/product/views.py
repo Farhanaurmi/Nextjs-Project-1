@@ -69,3 +69,17 @@ def all_product(request):
     products=SingleProduct.objects.all().order_by('-createdAt')
     serializer=SingleProductSerializer(products, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def category(request):
+    cate=Category.objects.all()
+    serializer=CategorySerializer(cate, many=True)
+    return Response(serializer.data)
+
+
+@api_view(['GET'])
+def getProduct(request,pk):
+    product=SingleProduct.objects.get(id=pk)
+    serializer=SingleProductSerializer(product, many=False)
+    return Response(serializer.data)

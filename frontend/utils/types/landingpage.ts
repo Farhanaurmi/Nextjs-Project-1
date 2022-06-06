@@ -13,7 +13,13 @@ export interface SingleProductProps {
     description: string;
     category: number;
     brand: string;
-    file_content: FormData;
+    file_content: any[];
   }
+
+export interface CategoryProps {
+  id: number;
+  name: string;
+}
+
 
   
