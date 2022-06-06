@@ -1,5 +1,7 @@
 import axios from "axios";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import React from "react";
+import { useState } from "react";
 import { Button, Container, Dropdown, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
@@ -20,7 +22,7 @@ const addProduct = ({
     handleSubmit,
     formState: { errors },
   } = useForm<SingleProductProps>();
- 
+
 
   // export const addContact = (data) => async (dispatch) => {
   //   try {
@@ -40,7 +42,7 @@ const addProduct = ({
   //  }
 
   const onSubmit: SubmitHandler<SingleProductProps> = async (data) => {
-    console.log(data);
+    
     //   const request = await fetch(`${API_BASE_URL}/add/product`, {
     //     method: "POST",
     //     body: JSON.stringify(data),
@@ -50,24 +52,37 @@ const addProduct = ({
     //     },
     //   });
     // };
-    // var formData=new FormData();
-    // formData.append('name',data.name);
-    // formData.append('brand',data.brand);
-    // formData.append('phone',data.Phone);
-    // formData.append('file_content',data.file_content);
+    
+    var formData=new FormData();
+    formData.append('name',data.name);
+    formData.append('brand',data.brand);
+    formData.append('price',data.price);
+    formData.append('SKU',data.SKU);
+    formData.append('description',data.description);
+    formData.append('category',data.category);
+    formData.append('color',data.color);
+    formData.append('size',data.size);
+
+    var filesLength=data.file_content.length;
+    for(var i=0;i<filesLength;i++){
+	  formData.append("file_content", data.file_content[i]);
+    }
+
+
+    
     const config = {
       headers: {
-        "Content-Type": "multipart/form-data",
+        "Content-type": "multipart/form-data",
         Authorization: `Bearer ${userInfo["token"]}`,
       },
     };
 
     const { request } = await axios.post(
       `${API_BASE_URL}/add/product`,
-      data,
+      formData,
       config
     );
-    console.log(data);
+    
     console.log(request);
   };
   return (
@@ -99,12 +114,12 @@ const addProduct = ({
               ></Form.Control>
             </Form.Group>
 
-            <Form.Group controlId="photo">
+            <Form.Group controlId="file_content">
               <Form.Label>Photo</Form.Label>
               <Form.Control
                 type="file"
                 placeholder="Enter Photo"
-                id="photo"
+                id="file_content"
                 multiple
                 required
                 {...register("file_content", { required: true })}
@@ -123,20 +138,26 @@ const addProduct = ({
             </Form.Group>
 
             <Form.Group controlId="Category">
-              <Form.Label>Category</Form.Label>
-                  <Dropdown>
-                    <Dropdown.Toggle>Select Category</Dropdown.Toggle>
-                    <Dropdown.Menu {...register("category", { required: true })}>
-                    {categoryData.map((item: CategoryProps)=>(
-                    <Dropdown.Item key={item.id} value={item.id}>
+              <Form.Label>Select Category</Form.Label>
+              <Form.Select {...register("category", { required: true })}>
+                  {categoryData.map((item: CategoryProps) => (
+                    <option key={item.id} value={item.id}>
                       {item.name}
-                    </Dropdown.Item>
-                       ))}
-                    </Dropdown.Menu>
-                  </Dropdown>
-               
-             
+                    </option>
+                  ))}
+              </Form.Select >             
             </Form.Group>
+
+            {/* <Form.Group controlId="Category">
+              <Form.Label>Category</Form.Label>
+              <Form.Control
+                type="number"
+                placeholder="Enter Category"
+                id="category"
+                required
+                {...register("category", { required: true })}
+              ></Form.Control>
+            </Form.Group> */}
 
             <Form.Group controlId="Description">
               <Form.Label>Description</Form.Label>

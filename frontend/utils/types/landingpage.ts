@@ -9,9 +9,9 @@ export interface SingleProductProps {
     SKU:string;
     color:string;
     size:string;
-    price: number;
+    price: string;
     description: string;
-    category: number;
+    category: string;
     brand: string;
     file_content: any[];
   }

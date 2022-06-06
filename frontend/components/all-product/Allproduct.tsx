@@ -10,7 +10,9 @@ const Allproduct = ({ product }: { product: SingleProductProps[] }) => {
     <Card style={{ width: '18rem' }}>
     <Card.Img variant="top" src=".././images/4-5-2.jpg" fluid />
     <Card.Body>
-        <Card.Title>{product["name"]}</Card.Title>
+    <a href={`product-details?id=${product["id"]}`}>
+      <Card.Title>{product["name"]}</Card.Title>
+    </a>
         <Card.Text>
         {product["description"]}
         </Card.Text>
