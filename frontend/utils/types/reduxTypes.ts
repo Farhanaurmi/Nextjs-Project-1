@@ -8,6 +8,7 @@ export interface UserLoginProps {
 export interface UserDataProps {
   user_id: number;
   email: string;
+  isAdmin: boolean;
   access_token: string;
   refresh_token: string;
 }

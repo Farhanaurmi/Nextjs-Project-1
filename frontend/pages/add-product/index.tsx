@@ -1,10 +1,12 @@
 import axios from "axios";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 import React from "react";
 import { useState } from "react";
 import { Button, Container, Dropdown, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 import Header from "../../components/common/Header";
 import { CategoryProps, SingleProductProps } from "../../utils/types/landingpage";
 import { RootAppStateProps } from "../../utils/types/reduxTypes";
@@ -22,6 +24,7 @@ const addProduct = ({
     handleSubmit,
     formState: { errors },
   } = useForm<SingleProductProps>();
+  const router = useRouter();
 
 
   // export const addContact = (data) => async (dispatch) => {
@@ -82,14 +85,40 @@ const addProduct = ({
       formData,
       config
     );
+    if (request.status === 200) { 
+      toast("Product Added!", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+      router.push('/')
+    } else {
+      const response = await request.json();
+      toast(`Product Added Failed. ${response["details"]}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
     
-    console.log(request);
+   
   };
+
+
   return (
     <div>
       <Header />
       <div>
         <Container>
+        <ToastContainer containerId="an id" draggable={false} />
           <h1>Add Product</h1>
           <Form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Form.Group controlId="name">

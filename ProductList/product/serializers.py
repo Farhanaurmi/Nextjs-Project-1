@@ -7,19 +7,20 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields= ['id','email','full_name']
-
+        fields= ['id','email','full_name','is_Admin']
 
 class UserSerializerWithToken(UserSerializer):
     token=serializers.SerializerMethodField(read_only=True)
 
+
     class Meta:
         model = User
-        fields= ['id','email','full_name','token']
+        fields= ['id','email','full_name','token','isAdmin']
 
     def get_token(self,obj):
         token=RefreshToken.for_user(obj)
         return str(token.access_token)
+
 
 class ImgFileSerializer(serializers.ModelSerializer):
     class Meta:

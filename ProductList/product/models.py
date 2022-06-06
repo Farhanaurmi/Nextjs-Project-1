@@ -38,6 +38,8 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=300)
     email = models.EmailField(max_length=300, unique=True)
     password = models.CharField(max_length=300)
+    isAdmin = models.BooleanField(default=False)
+
     username = None
 
     USERNAME_FIELD = 'email'

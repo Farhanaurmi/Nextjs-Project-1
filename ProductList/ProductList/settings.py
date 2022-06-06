@@ -125,7 +125,7 @@ DATABASES = {
 
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 
-        'NAME': 'productdatabase',
+        'NAME': 'finaldb',
 
         'USER': 'postgres',
 

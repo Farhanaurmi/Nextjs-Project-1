@@ -4,30 +4,33 @@ import { SingleProductProps } from "../../utils/types/landingpage";
 
 
 const Details = ({ product }: { product: SingleProductProps[] }) => {
-
+  
+  let images = product["img"];
+  let simage = images[0].media;
+  console.log(simage);
   return (
   <Container>
         <Row>
         <Col>
-          <Image src=".././images/4-5-2.jpg" fluid />
+          <Image src={simage} fluid />
         </Col>
         <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>
-              <h3> {product.name} </h3>
+              <h3> {product["name"]} </h3>
             </ListGroup.Item>
-            <ListGroup.Item>Price : ${product.price}</ListGroup.Item>
+            <ListGroup.Item>Price : ${product["price"]}</ListGroup.Item>
             <ListGroup.Item>
-              Description : {product.description}
-            </ListGroup.Item>
-            <ListGroup.Item>
-              Brand : {product.brand}
+              Description : {product["description"]}
             </ListGroup.Item>
             <ListGroup.Item>
-              Color : {product.color}
+              Brand : {product["brand"]}
             </ListGroup.Item>
             <ListGroup.Item>
-              Size : {product.size}
+              Color : {product["color"]}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              Size : {product["size"]}
             </ListGroup.Item>
           </ListGroup>
         </Col> 
@@ -38,7 +41,7 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>$100</strong>
+                    <strong>${product["price"]}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
@@ -51,4 +54,3 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
 };
 
 export default Details;
-
