@@ -2,8 +2,7 @@ import axios from "axios";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import React from "react";
-import { useState } from "react";
-import { Button, Container, Dropdown, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
@@ -13,7 +12,7 @@ import { RootAppStateProps } from "../../utils/types/reduxTypes";
 import { API_BASE_URL } from "../api/hello";
 
 const addProduct = ({
-  categoryData
+  categoryData,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) => {
 
   const { userInfo } = useSelector(
@@ -79,46 +78,49 @@ const addProduct = ({
         Authorization: `Bearer ${userInfo["token"]}`,
       },
     };
-
-    const { request } = await axios.post(
-      `${API_BASE_URL}/add/product`,
-      formData,
-      config
-    );
-    if (request.status === 200) { 
-      toast("Product Added!", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      router.push('/')
-    } else {
-      const response = await request.json();
-      toast(`Product Added Failed. ${response["details"]}`, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-    }
     
-   
+    try {
+      const request  = await axios.post(
+        `${API_BASE_URL}/add/product`,
+        formData,
+        config
+      );
+      if (request.status == 200) {
+      
+        toast("Successful!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        router.push('/')
+      }
+    } catch (error) {
+      console.log(error);
+      toast(`Request Failed. ${error.response.data.details}`, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }  
   };
 
 
   return (
     <div>
+      <ToastContainer draggable={false} />
       <Header />
+      
       <div>
         <Container>
-        <ToastContainer containerId="an id" draggable={false} />
+        
           <h1>Add Product</h1>
           <Form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Form.Group controlId="name">
@@ -127,8 +129,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter Name"
                 id="name"
-                required
-                {...register("name", { required: true })}
+                
+                {...register("name")}
               ></Form.Control>
             </Form.Group>
 
@@ -138,8 +140,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter Brand"
                 id="brand"
-                required
-                {...register("brand", { required: true })}
+              
+                {...register("brand")}
               ></Form.Control>
             </Form.Group>
 
@@ -150,8 +152,8 @@ const addProduct = ({
                 placeholder="Enter Photo"
                 id="file_content"
                 multiple
-                required
-                {...register("file_content", { required: true })}
+            
+                {...register("file_content")}
               ></Form.Control>
             </Form.Group>
 
@@ -161,14 +163,14 @@ const addProduct = ({
                 type="number"
                 placeholder="Enter Price"
                 id="price"
-                required
-                {...register("price", { required: true })}
+        
+                {...register("price")}
               ></Form.Control>
             </Form.Group>
 
             <Form.Group controlId="Category">
               <Form.Label>Select Category</Form.Label>
-              <Form.Select {...register("category", { required: true })}>
+              <Form.Select {...register("category")}>
                   {categoryData.map((item: CategoryProps) => (
                     <option key={item.id} value={item.id}>
                       {item.name}
@@ -184,7 +186,7 @@ const addProduct = ({
                 placeholder="Enter Category"
                 id="category"
                 required
-                {...register("category", { required: true })}
+                {...register("category")}
               ></Form.Control>
             </Form.Group> */}
 
@@ -194,8 +196,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter Description"
                 id="description"
-                required
-                {...register("description", { required: true })}
+          
+                {...register("description")}
               ></Form.Control>
             </Form.Group>
 
@@ -205,8 +207,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter Color"
                 id="color"
-                required
-                {...register("color", { required: true })}
+           
+                {...register("color")}
               ></Form.Control>
             </Form.Group>
 
@@ -216,8 +218,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter Size"
                 id="size"
-                required
-                {...register("size", { required: true })}
+          
+                {...register("size")}
               ></Form.Control>
             </Form.Group>
 
@@ -227,8 +229,8 @@ const addProduct = ({
                 type="text"
                 placeholder="Enter SKU"
                 id="SKU"
-                required
-                {...register("SKU", { required: true })}
+         
+                {...register("SKU")}
               ></Form.Control>
             </Form.Group>
 

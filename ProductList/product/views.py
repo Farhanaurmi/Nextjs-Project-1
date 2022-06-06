@@ -50,18 +50,36 @@ class add_product(generics.ListCreateAPIView):
     serializer_class=SingleProductSerializer
     
     def create(self,request):
-        data=request.data
-        cat_id=data['category'] 
-        category=Category.objects.get(id=cat_id)
-        files = request.FILES.getlist('file_content')
-        user=request.user   
-        product=SingleProduct.objects.create(user=user,name=data['name'],SKU=data['SKU'],brand=data['brand'],color=data['color'],size=data['size'], category=category,description=data['description'],price=data['price'])             
-        for file in files:       
-            content = ImgFile.objects.create(media=file,file_content=product)
+        try:
+            data=request.data
+            files = request.FILES.getlist('file_content')
+            if data['name'] and data['price'] and data['SKU'] and files:
+                cat_id=data['category'] 
+                category=Category.objects.get(id=cat_id)
                 
-        serializers=SingleProductSerializer(product, many=False)
+                user=request.user   
+                product=SingleProduct.objects.create(user=user,name=data['name'],SKU=data['SKU'],brand=data['brand'],color=data['color'],size=data['size'], category=category,description=data['description'],price=data['price'])             
+            for file in files:       
+                content = ImgFile.objects.create(media=file,file_content=product)
+                    
+            serializers=SingleProductSerializer(product, many=False)
 
-        return Response(serializers.data)
+            return Response(serializers.data)
+        except:
+            data=request.data
+            files = request.FILES.getlist('file_content')
+            
+            if data['name'] and data['price']:
+                message={"details":'SKU field can not be empty'}
+            elif data['name'] and data['SKU']:
+                message={"details":'Price field can not be empty'}
+            elif data['price'] and data['SKU']:
+                message={"details":'Name field can not be empty'}
+            elif not files:
+                message={"details":'Image Field empty'}
+            else:
+                message={"details":'Product add failed, multiple field empty'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
