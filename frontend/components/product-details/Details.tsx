@@ -7,12 +7,12 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
   
   let images = product["img"];
   let simage = images[0].media;
-  console.log(simage);
+
   return (
   <Container>
         <Row>
         <Col>
-          <Image src={simage} fluid />
+          <Image src={`http://localhost:8000${simage}`} fluid />
         </Col>
         <Col md={6}>
           <ListGroup variant="flush">

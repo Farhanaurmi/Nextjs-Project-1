@@ -4,11 +4,13 @@ import { SingleProductProps } from "../../utils/types/landingpage";
 
 
 const Allproduct = ({ product }: { product: SingleProductProps[] }) => {
+  let images = product["img"];
+  let simage = images[0].media;
 
   return (
   <Container>
     <Card style={{ width: '18rem' }}>
-    <Card.Img variant="top" src=".././images/4-5-2.jpg" fluid />
+    <Card.Img variant="top" src={`http://localhost:8000${simage}`} fluid />
     <Card.Body>
     <a href={`product-details?id=${product["id"]}`}>
       <Card.Title>{product["name"]}</Card.Title>
