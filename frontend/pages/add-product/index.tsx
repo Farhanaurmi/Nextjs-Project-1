@@ -1,8 +1,9 @@
 import axios from "axios";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
@@ -24,6 +25,8 @@ const addProduct = ({
     formState: { errors },
   } = useForm<SingleProductProps>();
   const router = useRouter();
+
+  
 
 
   // export const addContact = (data) => async (dispatch) => {
@@ -54,7 +57,7 @@ const addProduct = ({
     //     },
     //   });
     // };
-    
+    console.log(data)
     var formData=new FormData();
     formData.append('name',data.name);
     formData.append('brand',data.brand);
@@ -96,7 +99,8 @@ const addProduct = ({
           draggable: true,
           progress: undefined,
         });
-        router.push('/')
+        
+      setTimeout(() => router.push('/'), 5000)
       }
     } catch (error) {
       console.log(error);
@@ -116,11 +120,25 @@ const addProduct = ({
   return (
     <div>
       <ToastContainer draggable={false} />
-      <Header />
+      {/* <Header /> */}
       
       <div>
+      
         <Container>
-        
+          <br/>
+          <Link href="/">
+          <text>Go back</text>
+          </Link>
+          <br/>
+          <br/>
+          <Row>
+          <Col md={3}>
+            </Col>
+            <Col md={6}>
+            </Col>
+            <Col md={3}>
+            </Col>
+          </Row>
           <h1>Add Product</h1>
           <Form onSubmit={handleSubmit(onSubmit)} noValidate>
             <Form.Group controlId="name">
@@ -233,9 +251,9 @@ const addProduct = ({
                 {...register("SKU")}
               ></Form.Control>
             </Form.Group>
-
+            <br/>
             <Button type="submit" variant="primary">
-              Update
+              Upload
             </Button>
           </Form>
         </Container>

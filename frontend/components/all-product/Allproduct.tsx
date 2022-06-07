@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 import { Button, Card, Container } from "react-bootstrap";
 import { SingleProductProps } from "../../utils/types/landingpage";
@@ -9,26 +10,19 @@ const Allproduct = ({ product }: { product: SingleProductProps[] }) => {
 
   return (
   <Container>
-    <Card style={{ width: '18rem' }}>
+    <Card className="my-3 p-3 rounded" style={{ width: '18rem' }}>
+    <Link href={`product-details?id=${product["id"]}`}>
     <Card.Img variant="top" src={`http://localhost:8000${simage}`} fluid />
+    </Link>
     <Card.Body>
-    <a href={`product-details?id=${product["id"]}`}>
+    <Link href={`product-details?id=${product["id"]}`}>
       <Card.Title>{product["name"]}</Card.Title>
-    </a>
+    </Link>
         <Card.Text>
-        {product["description"]}
-        </Card.Text>
-        <Card.Text>
-        price: {product["price"]}
-        </Card.Text>
-        <Card.Text>
-        color: {product["color"]}
+        price: BDT{product["price"]}
         </Card.Text>
         <Card.Text>
         brand: {product["brand"]}
-        </Card.Text>
-        <Card.Text>
-        size: {product["size"]}
         </Card.Text>
     </Card.Body>
     </Card>

@@ -19,7 +19,7 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
             <ListGroup.Item>
               <h3> {product["name"]} </h3>
             </ListGroup.Item>
-            <ListGroup.Item>Price : ${product["price"]}</ListGroup.Item>
+            <ListGroup.Item>Price : BDT{product["price"]}</ListGroup.Item>
             <ListGroup.Item>
               Description : {product["description"]}
             </ListGroup.Item>
@@ -41,7 +41,7 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>${product["price"]}</strong>
+                    <strong>BDT{product["price"]}</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>

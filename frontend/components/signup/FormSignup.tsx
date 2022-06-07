@@ -16,11 +16,11 @@ const FormSignup = () => {
     (state: RootAppStateProps) => state.AuthReducer
   );
 
-  useEffect(() => {
-    if (userInfo) {
-      router.push('/');
-    }
-  }, [router,userInfo]);
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     router.push('/');
+  //   }
+  // }, [router,userInfo]);
   
   const {
     register,
@@ -50,6 +50,7 @@ const FormSignup = () => {
         draggable: true,
         progress: undefined,
       });
+      setTimeout(() => router.push('/'), 5000)
     } else {
       const response = await request.json();
       toast(`Signup Failed. ${response['details']}`, {

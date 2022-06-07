@@ -65,15 +65,18 @@ class add_product(generics.ListCreateAPIView):
             serializers=SingleProductSerializer(product, many=False)
 
             return Response(serializers.data)
-        except:
+        except Exception as e:
+            print('hello123')
+            print(e)
+            print('hello')
             data=request.data
             files = request.FILES.getlist('file_content')
             
-            if data['name'] and data['price']:
+            if data['name'] and data['price'] and not data['SKU']:
                 message={"details":'SKU field can not be empty'}
-            elif data['name'] and data['SKU']:
+            elif data['name'] and data['SKU'] and not data['price']:
                 message={"details":'Price field can not be empty'}
-            elif data['price'] and data['SKU']:
+            elif data['price'] and data['SKU'] and not data['name']:
                 message={"details":'Name field can not be empty'}
             elif not files:
                 message={"details":'Image Field empty'}
