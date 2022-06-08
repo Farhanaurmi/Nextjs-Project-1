@@ -31,6 +31,7 @@ const Header = () => {
           <Nav.Link href="/login">Login</Nav.Link>)}
           {userInfo && (
             <NavDropdown title="User" id="basic-nav-dropdown">
+            {/* <NavDropdown.Item href="/profile">Profile</NavDropdown.Item> */}
             <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
           </NavDropdown>
           )}

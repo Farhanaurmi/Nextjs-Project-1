@@ -19,10 +19,10 @@ const Allproduct = ({ product }: { product: SingleProductProps[] }) => {
       <Card.Title>{product["name"]}</Card.Title>
     </Link>
         <Card.Text>
-        price: BDT{product["price"]}
+        {Math.ceil(product["price"])} BDT
         </Card.Text>
         <Card.Text>
-        brand: {product["brand"]}
+        {product["brand"] && "Brand :"}<strong>&nbsp; {product["brand"]}</strong>
         </Card.Text>
     </Card.Body>
     </Card>

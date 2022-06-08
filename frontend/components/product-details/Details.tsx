@@ -1,39 +1,51 @@
 import React from "react";
 import { Card, Col, Container, Image, ListGroup, Row } from "react-bootstrap";
 import { SingleProductProps } from "../../utils/types/landingpage";
-
+import SimpleImageSlider from "react-simple-image-slider";
 
 const Details = ({ product }: { product: SingleProductProps[] }) => {
-  
+
   let images = product["img"];
-  let simage = images[0].media;
+  var imageLength=images.length;
+  var img=[];
+  for(var i=0;i<imageLength;i++){
+	  img.push({ url: `http://localhost:8000${images[i].media}` })
+    }
+  
 
   return (
-  <Container>
-        <Row>
+    <Container>
+      <Row>
         <Col>
-          <Image src={`http://localhost:8000${simage}`} fluid />
+          <SimpleImageSlider
+            width={400}
+            height={400}
+            images={img}
+            showBullets={true}
+            showNavs={true}
+      />
+          {/* <Image src={`http://localhost:8000${simage}`} fluid /> */}
         </Col>
         <Col md={6}>
           <ListGroup variant="flush">
             <ListGroup.Item>
               <h3> {product["name"]} </h3>
             </ListGroup.Item>
-            <ListGroup.Item>Price : BDT{product["price"]}</ListGroup.Item>
+            <ListGroup.Item>Price : {Math.ceil(product["price"])} BDT</ListGroup.Item>
             <ListGroup.Item>
-              Description : {product["description"]}
+            {product["description"] && (<div>Description : {product["description"]}</div>)}
             </ListGroup.Item>
             <ListGroup.Item>
-              Brand : {product["brand"]}
+            {product["brand"] && (<div>Brand : {product["brand"]}</div>)}
             </ListGroup.Item>
             <ListGroup.Item>
-              Color : {product["color"]}
+            {product["color"] && (<div>Color : {product["color"]}</div>)}
             </ListGroup.Item>
             <ListGroup.Item>
-              Size : {product["size"]}
+            {product["size"] && (<div>Size : {product["size"]}</div>)}
             </ListGroup.Item>
           </ListGroup>
-        </Col> 
+        </Col>
         <Col md={6}>
           <Card>
             <ListGroup variant="flush">
@@ -41,15 +53,15 @@ const Details = ({ product }: { product: SingleProductProps[] }) => {
                 <Row>
                   <Col>Price:</Col>
                   <Col>
-                    <strong>BDT{product["price"]}</strong>
+                    <strong>{Math.ceil(product["price"])} BDT</strong>
                   </Col>
                 </Row>
               </ListGroup.Item>
-           </ListGroup>
+            </ListGroup>
           </Card>
         </Col>
       </Row>
-  </Container>
+    </Container>
   );
 };
 
