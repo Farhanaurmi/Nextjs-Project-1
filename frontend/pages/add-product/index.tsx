@@ -7,7 +7,6 @@ import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
 import { toast, ToastContainer } from "react-toastify";
-import Header from "../../components/common/Header";
 import { CategoryProps, SingleProductProps } from "../../utils/types/landingpage";
 import { RootAppStateProps } from "../../utils/types/reduxTypes";
 import { API_BASE_URL } from "../api/hello";

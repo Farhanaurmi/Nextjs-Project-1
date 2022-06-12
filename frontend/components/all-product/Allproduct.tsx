@@ -12,7 +12,7 @@ const Allproduct = ({ product }: { product: SingleProductProps[] }) => {
   <Container>
     <Card className="my-3 p-3 rounded" style={{ width: '18rem' }}>
     <Link href={`product-details?id=${product["id"]}`}>
-    <Card.Img variant="top" src={`http://localhost:8000${simage}`} fluid />
+    <Card.Img variant="top" src={`http://localhost:8000${simage}`} />
     </Link>
     <Card.Body>
     <Link href={`product-details?id=${product["id"]}`}>
