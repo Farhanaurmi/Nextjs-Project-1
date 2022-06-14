@@ -5,49 +5,44 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootAppStateProps } from "../../utils/types/reduxTypes";
 
 const Details = () => {
-    const router = useRouter();
-    const dispatch = useDispatch();
-    const { userInfo } = useSelector(
-        (state: RootAppStateProps) => state.AuthReducer
-    );
- useEffect(() => {
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const { userInfo } = useSelector(
+    (state: RootAppStateProps) => state.AuthReducer
+  );
+  useEffect(() => {
     if (userInfo) {
-      router.push('/profile');
+      router.push("/profile");
     }
   }, [router]);
-    return (
-    <Container>
-      <Row>
-        <Col md={3}>
-          
-        </Col>
-        <Col md={6}>
-          <ListGroup variant="flush">
-            <ListGroup.Item>
-                {
 
-                }
-                    <div>
-                         {/* Email: <strong>{userInfo["email"]}</strong> */}
-                    </div>
-            </ListGroup.Item>
-            {/* <ListGroup.Item>Price : BDT{product["price"]}</ListGroup.Item> */}
-            {/* <ListGroup.Item> */}
-              {/* Description : {product["description"]}
-            </ListGroup.Item> */}
+  console.log(userInfo);
+  return (
+    <Container>
+      <br />
+      <br />
+      <Row>
+        <Col md={3}></Col>
+        <Col md={6}>
+          <h5>Profile</h5>
+          <ListGroup variant="flush">
+            <ListGroup.Item></ListGroup.Item>
             <ListGroup.Item>
-              {/* Brand : {product["brand"]} */}
+              Email:{" "}
+              <strong>
+                {userInfo && userInfo["email"] && userInfo["email"]}
+              </strong>
             </ListGroup.Item>
             <ListGroup.Item>
-              {/* Color : {product["color"]} */}
+              Name:{" "}
+              <strong>
+                {userInfo && userInfo["full_name"] && userInfo["full_name"]}
+              </strong>
             </ListGroup.Item>
-            <ListGroup.Item>
-              {/* Size : {product["size"]} */}
-            </ListGroup.Item>
+            <ListGroup.Item></ListGroup.Item>
           </ListGroup>
         </Col>
-        <Col md={3}>
-        </Col>
+        <Col md={3}></Col>
       </Row>
     </Container>
   );
